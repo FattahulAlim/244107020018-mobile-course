@@ -21,7 +21,7 @@
 1. Persiapan Lingkungan: Pastikan laptop Anda sudah terinstal Git, Flutter SDK (dengan path yang ditambahkan ke Environment Variables), dan browser Chrome atau Android Studio sebagai target perangkat. Selain itu, siapkan juga IDE Visual Studio Code yang telah dipasangi ekstensi Flutter dan Dart.
 2. Buka Terminal, PowerShell, atau Command Prompt pada direkotori yang anda inginkan dan jalankan perintah di bawah:
 ``` 
-
+https://github.com/FattahulAlim/244107020018-mobile-course.git
 ```
 3. Masuk ke direktori repository yang baru saja diunduh:
 ```
