@@ -75,18 +75,25 @@ flutter run
 ## Demo Aplikasi
 **Post Belum Load**
 ![Screenshot-demo](screenshots/post-blm-load.jpeg)
+
 **Post Sudah Load**
 ![Screenshot-demo](screenshots/post-sdh-load.jpeg)
+
 **Sebelum Tambah Data**
 ![Screenshot-demo](screenshots/blm-tambah.jpeg)
+
 **Sesudah Tambah Data**
 ![Screenshot-demo](screenshots/sdh-tambah.jpeg)
+
 **Sebelum Sync Data**
 ![Screenshot-demo](screenshots/sdh-sync.jpeg)
+
 **Lihat Data Preference Saat Pertama Kali Dibuka**
 ![Screenshot-demo](screenshots/blm-set-preference.jpeg)
+
 **Data Preference Saat Dibuka Lagi Setelah App Ditutup**
 ![Screenshot-demo](screenshots/sdh-set.jpeg)
+
 **Hasil Flutter Analyze dan Flutter Test**
 ![Screenshot-demo](screenshots/test.png)
 
@@ -154,10 +161,6 @@ Cache-first cocok ketika perubahan data relatif jarang dan keterlambatan beberap
 Dirty flag adalah kolom status (`notes.dirty`) di tabel yang sama, bukan tabel terpisah. `addNote()` langsung sukses ke database lokal dan set `dirty = true`, tanpa menunggu jaringan. `syncNotes()` baru berjalan di akhir baca semua baris `dirty = 1`, kirim ke server (disimulasikan), lalu set dirty = 0. Karena dua proses ini terpisah dan async, UI tidak pernah terblokir.
 
 Pendekatan ini cukup untuk kasus sederhana seperti project ini (hanya operasi create). Tabel outbox terpisah baru diperlukan kalau perlu melacak jenis operasi (create/update/delete) secara individual, retry berurutan (FIFO), riwayat percobaan gagal, atau satu entitas punya banyak perubahan tertunda sekaligus.
-
-**4. Bagian mana dari rekomendasi AI yang Anda tolak, dan mengapa?**
-
-Versi tanpa klaim soal masalah reaktivitas itu:
 
 **4. Bagian mana dari rekomendasi AI yang Anda tolak, dan mengapa?**
 
