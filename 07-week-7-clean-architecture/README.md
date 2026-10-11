@@ -9,6 +9,7 @@
 | `data/auth_repository.dart` | data (+kontrak tercampur) | interface dan implementasi masih satu kelas |
 
 # Campus Notify: Refactor ke Clean Architecture (Feature-First)
+Link campus-notify: https://github.com/FattahulAlim/244107020018-mobile-course/tree/main/06-week-6-authentication-security-fcm/campus_notify
 
 ## Tujuan Pembelajaran
 
@@ -55,6 +56,12 @@ lib/
 ├── routes.dart
 └── main.dart
 ```
+![refactor-folder](screenshots/refactor.png)
+![refactor-folder](screenshots/refactor2.png) 
+![refactor-folder](screenshots/refactor3.png) 
+
+
+
 
 Arah dependensi: `presentation → domain ← data`
 
