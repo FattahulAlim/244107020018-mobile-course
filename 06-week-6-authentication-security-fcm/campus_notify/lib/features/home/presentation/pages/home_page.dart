@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../messaging/push_service.dart';
-import '../providers/auth_provider.dart';
+import '../../../notifications/push_service.dart';
+import '../../../auth/presentation/auth_provider.dart';
+
+import '../../../../routes.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -37,6 +39,10 @@ class HomePage extends ConsumerWidget {
             FilledButton(
               onPressed: () => context.go('/pengumuman/1'),
               child: const Text('Buka pengumuman 1'),
+            ),
+            FilledButton(
+              onPressed: () => context.push(AppRoutes.notes),
+              child: const Text('Catatan'),
             ),
           ],
         ),

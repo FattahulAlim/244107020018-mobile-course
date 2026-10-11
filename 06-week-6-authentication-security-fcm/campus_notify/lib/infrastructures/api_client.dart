@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'auth_repository.dart';
+import '../features/auth/data/auth_repository.dart';
 import 'token_store.dart';
 
 Dio buildApiClient(TokenStore store, AuthRepository auth) {

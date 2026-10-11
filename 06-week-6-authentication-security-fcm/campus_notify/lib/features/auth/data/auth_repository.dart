@@ -1,4 +1,4 @@
-import 'api_errors.dart';
+import '../../../infrastructures/api_errors.dart';
 
 class AuthSession {
   const AuthSession({required this.access, required this.refresh});

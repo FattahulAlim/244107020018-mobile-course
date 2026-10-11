@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core_providers.dart';
+import '../../../infrastructures/core_providers.dart';
 
 final authStateProvider =
     AsyncNotifierProvider<AuthNotifier, bool>(AuthNotifier.new);

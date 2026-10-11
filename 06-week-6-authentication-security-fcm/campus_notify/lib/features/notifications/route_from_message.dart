@@ -1,4 +1,4 @@
-import '../routes.dart';
+import '../../routes.dart';
 
 String routeFromMessage(Map<String, dynamic> data) {
   var route = data['route'];

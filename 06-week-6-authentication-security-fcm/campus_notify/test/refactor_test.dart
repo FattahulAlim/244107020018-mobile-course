@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:campus_notify/data/api_errors.dart';
-import 'package:campus_notify/messaging/route_from_message.dart';
+import 'package:campus_notify/infrastructures/api_errors.dart';
+import 'package:campus_notify/features/notifications/route_from_message.dart';
 
 DioException _dio(DioExceptionType t, {int? status}) => DioException(
       requestOptions: RequestOptions(path: '/'),

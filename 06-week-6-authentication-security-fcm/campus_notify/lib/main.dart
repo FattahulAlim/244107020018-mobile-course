@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'data/api_client.dart';
-import 'messaging/push_service.dart';
-import 'pages/announcement_page.dart';
-import 'pages/home_page.dart';
-import 'pages/login_page.dart';
-import 'providers/auth_provider.dart';
-import 'providers/core_providers.dart';
+import 'infrastructures/api_client.dart';
+import 'features/notifications/push_service.dart';
+import 'features/announcements/presentation/pages/announcement_page.dart';
+import 'features/home/presentation/pages/home_page.dart';
+import 'features/auth/presentation/login_page.dart';
+import 'features/auth/presentation/auth_provider.dart';
+import 'infrastructures/core_providers.dart';
 
 import 'routes.dart';
+import 'features/notes/presentation/pages/notes_page.dart';
 
 final container = ProviderContainer();
 
@@ -27,6 +28,7 @@ final router = GoRouter(
   routes: [
     GoRoute(path: AppRoutes.login, builder: (_, _) => const LoginPage()),
     GoRoute(path: AppRoutes.home, builder: (_, _) => const HomePage()),
+    GoRoute(path: AppRoutes.notes, builder: (_, _) => const NotesPage()),
     GoRoute(
       path: AppRoutes.announcementPattern,
       builder: (_, s) => AnnouncementPage(id: s.pathParameters['id'] ?? ''),
