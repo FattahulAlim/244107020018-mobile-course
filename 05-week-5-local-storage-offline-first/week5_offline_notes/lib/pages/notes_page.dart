@@ -65,6 +65,53 @@ class NotesNotifier extends AsyncNotifier<List<Note>> {
 class NotesPage extends ConsumerWidget {
   const NotesPage({super.key});
 
+  void _showAddNoteDialog(BuildContext context, WidgetRef ref) {
+    final formKey = GlobalKey<FormState>();
+    final titleController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Tambah Catatan'),
+        content: Form(
+          key: formKey,
+          child: TextFormField(
+            controller: titleController,
+            autofocus: true,
+            decoration: const InputDecoration(
+              labelText: 'Judul Catatan',
+              hintText: 'Masukkan judul',
+            ),
+            // di form tambah/edit catatan
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return 'Judul tidak boleh kosong';
+              }
+              return null;
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Batal'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (formKey.currentState?.validate() ?? false) {
+                ref
+                    .read(notesProvider.notifier)
+                    .addNote(titleController.text.trim());
+                Navigator.pop(dialogContext);
+              }
+            },
+            child: const Text('Simpan'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notesAsync = ref.watch(notesProvider);
@@ -96,8 +143,7 @@ class NotesPage extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            ref.read(notesProvider.notifier).addNote('Note ${DateTime.now().second}'),
+        onPressed: () => _showAddNoteDialog(context, ref),
         child: const Icon(Icons.add),
       ),
       body: notesAsync.when(
