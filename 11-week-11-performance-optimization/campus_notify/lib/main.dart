@@ -1,0 +1,98 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import 'infrastructures/api_client.dart';
+import 'features/notifications/push_service.dart';
+import 'features/announcements/presentation/pages/announcement_page.dart';
+import 'features/home/presentation/pages/home_page.dart';
+import 'features/auth/presentation/login_page.dart';
+import 'features/auth/presentation/auth_provider.dart';
+import 'infrastructures/core_providers.dart';
+
+import 'routes.dart';
+import 'features/notes/presentation/pages/notes_page.dart';
+
+final container = ProviderContainer();
+
+final router = GoRouter(
+  redirect: (context, state) {
+    final loggedIn = container.read(authStateProvider).value ?? false;
+    final goingLogin = state.matchedLocation == AppRoutes.login;
+    if (!loggedIn && !goingLogin) return AppRoutes.login;
+    if (loggedIn && goingLogin) return AppRoutes.home;
+    return null;
+  },
+  routes: [
+    GoRoute(path: AppRoutes.login, builder: (_, _) => const LoginPage()),
+    GoRoute(path: AppRoutes.home, builder: (_, _) => const HomePage()),
+    GoRoute(path: AppRoutes.notes, builder: (_, _) => const NotesPage()),
+    GoRoute(
+      path: AppRoutes.announcementPattern,
+      builder: (_, s) => AnnouncementPage(id: s.pathParameters['id'] ?? ''),
+    ),
+  ],
+);
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  bool firebaseReady = false;
+  try {
+    await Firebase.initializeApp();
+    firebaseReady = true;
+  } catch (e) {
+    if (kDebugMode) {
+      debugPrint(
+        'Firebase tidak diinisialisasi (misal di platform Desktop/Windows tanpa opsi): $e',
+      );
+    }
+  }
+
+  final dio = buildApiClient(
+    container.read(tokenStoreProvider),
+    container.read(authRepositoryProvider),
+  );
+
+  PushService? push;
+  final isMobile = !kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.android ||
+          defaultTargetPlatform == TargetPlatform.iOS);
+
+  if (firebaseReady && isMobile) {
+    try {
+      push = PushService(
+        onNavigate: (route) => router.go(route),
+        // Tanpa try/catch di onToken: error harus sampai ke PushService supaya bisa diulang.
+        onToken: (token) => dio.post(
+          '/devices',
+          data: {'fcm_token': token, 'platform': defaultTargetPlatform.name},
+        ),
+      );
+      await push.init();
+
+      // Kirim ulang token yang tertunda begitu user berhasil login.
+      container.listen(authStateProvider, (_, next) {
+        if (next.value == true) push?.flushPendingToken();
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('Inisialisasi PushService gagal: $e');
+      }
+    }
+  }
+
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: MaterialApp.router(routerConfig: router),
+    ),
+  );
+
+  await container.read(authStateProvider.future);
+  if (push != null) {
+    await push.handleInitialMessage();
+  }
+}
