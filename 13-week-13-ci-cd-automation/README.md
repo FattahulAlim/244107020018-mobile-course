@@ -115,10 +115,10 @@ Agar pipeline dijalankan secara otomatis di cloud oleh GitHub Actions:
 | No | Kategori Bukti | Screenshot | Deskripsi Hasil |
 |:---:|---|:---:|---|
 | 1 | **Eksekusi Lokal (Format, Analyze, Test)** | ![Eksekusi Lokal](screenshots/dart-format_analyze.png) ![Eksekusi Lokal](screenshots/flutter_test.png)| Eksekusi `dart format`, `flutter analyze --fatal-infos`, dan `flutter test --coverage` di terminal lokal menunjukkan hasil bersih tanpa error dan 37 test lolos. |
-| 2 | **Status Workflow GitHub Actions** | ![Workflow Run](screenshots/placeholder) | Tampilan tab Actions di repositori GitHub menunjukkan workflow `Flutter CI` pada commit terakhir berstatus sukses (centang hijau). |
-| 3 | **Rincian Langkah Eksekusi (Job Detail)** | ![Job Detail](screenshots/placeholder) | Detail log job `Format, Analyze, Test & Build` memperlihatkan setiap tahapan (checkout, setup, format, analyze, test, build apk/aab, upload) selesai secara berurutan. |
-| 4 | **Artefak Build di GitHub Actions** | ![Artefak GitHub Actions](screenshots/placeholder) | Bagian Artifacts pada halaman summary workflow menampilkan paket `android-builds` dengan ukuran file biner tertera dan siap diunduh. |
-| 5 | **Berkas Artefak yang Diunduh** | ![Unduhan Artefak](screenshots/placeholder) | Berkas biner `app-release.apk` dan `app-release.aab` yang telah diekstrak dari arsip ZIP artefak ke penyimpanan komputer lokal. |
+| 2 | **Status Workflow GitHub Actions** | ![Workflow Run](screenshots/git-action.png) | Tampilan tab Actions di repositori GitHub menunjukkan workflow `Flutter CI` pada commit terakhir berstatus sukses (centang hijau). |
+| 3 | **Rincian Langkah Eksekusi (Job Detail)** | ![Job Detail](screenshots/detail-step.png) | Detail log job `Format, Analyze, Test & Build` memperlihatkan setiap tahapan (checkout, setup, format, analyze, test, build apk/aab, upload) selesai secara berurutan. |
+| 4 | **Artefak Build di GitHub Actions** | ![Artefak GitHub Actions](screenshots/artifact.png) | Bagian Artifacts pada halaman summary workflow menampilkan paket `android-builds` dengan ukuran file biner tertera dan siap diunduh. |
+| 5 | **Berkas Artefak yang Diunduh** | ![Unduhan Artefak](screenshots/apk.png) ![Unduhan Artefak](screenshots/aab.png) | Berkas biner `app-release.apk` dan `app-release.aab` yang telah diekstrak dari arsip ZIP artefak ke penyimpanan komputer lokal. |
 
 ---
 
